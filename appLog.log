@@ -1,0 +1,90 @@
+2022-12-12 13:23:49,926 [INFO] com.example.LetsCharge.LetsChargeApplication [main] Starting LetsChargeApplication using Java 17.0.3 with PID 20207 (/home/ajay/Documents/Project Training/Frameworks/LetsCharge/target/classes started by ajay in /home/ajay/Documents/Project Training/Frameworks/LetsCharge)
+2022-12-12 13:23:49,929 [INFO] com.example.LetsCharge.LetsChargeApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-12-12 13:23:50,588 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 13:23:50,763 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 167 ms. Found 4 JPA repository interfaces.
+2022-12-12 13:23:51,636 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 9090 (http)
+2022-12-12 13:23:51,647 [INFO] org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2022-12-12 13:23:51,647 [INFO] org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-12 13:23:51,773 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2022-12-12 13:23:51,774 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1771 ms
+2022-12-12 13:23:51,994 [INFO] org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 13:23:52,036 [INFO] org.hibernate.Version [main] HHH000412: Hibernate ORM core version 6.1.5.Final
+2022-12-12 13:23:52,175 [WARN] org.hibernate.orm.deprecation [main] HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-12 13:23:52,317 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-12-12 13:23:52,686 [INFO] com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ef0e576
+2022-12-12 13:23:52,688 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-12-12 13:23:52,702 [INFO] SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-12-12 13:23:52,703 [WARN] org.hibernate.orm.deprecation [main] HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2022-12-12 13:23:53,729 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 13:23:53,735 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 13:23:53,982 [WARN] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customerController': Unsatisfied dependency expressed through field 'modelMapper': No qualifying bean of type 'org.modelmapper.ModelMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2022-12-12 13:23:53,983 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [main] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 13:23:53,986 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Shutdown initiated...
+2022-12-12 13:23:53,995 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Shutdown completed.
+2022-12-12 13:23:53,998 [INFO] org.apache.catalina.core.StandardService [main] Stopping service [Tomcat]
+2022-12-12 13:23:54,016 [INFO] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger [main] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2022-12-12 13:23:54,048 [ERROR] org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [main] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field modelMapper in com.example.LetsCharge.controller.CustomerController required a bean of type 'org.modelmapper.ModelMapper' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'org.modelmapper.ModelMapper' in your configuration.
+
+2022-12-12 17:48:21,918 [INFO] com.example.LetsCharge.LetsChargeApplication [main] Starting LetsChargeApplication using Java 17.0.3 with PID 11305 (/home/ajay/Documents/Project Training/Frameworks/LetsCharge/target/classes started by ajay in /home/ajay/Documents/Project Training/Frameworks/LetsCharge)
+2022-12-12 17:48:21,920 [INFO] com.example.LetsCharge.LetsChargeApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-12-12 17:48:22,820 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 17:48:22,964 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 136 ms. Found 4 JPA repository interfaces.
+2022-12-12 17:48:23,693 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 9090 (http)
+2022-12-12 17:48:23,703 [INFO] org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2022-12-12 17:48:23,703 [INFO] org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-12 17:48:23,828 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2022-12-12 17:48:23,828 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1799 ms
+2022-12-12 17:48:24,007 [INFO] org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 17:48:24,064 [INFO] org.hibernate.Version [main] HHH000412: Hibernate ORM core version 6.1.5.Final
+2022-12-12 17:48:24,195 [WARN] org.hibernate.orm.deprecation [main] HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-12 17:48:24,295 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-12-12 17:48:24,632 [INFO] com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@205159dc
+2022-12-12 17:48:24,634 [INFO] com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-12-12 17:48:24,652 [INFO] SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-12-12 17:48:24,652 [WARN] org.hibernate.orm.deprecation [main] HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2022-12-12 17:48:25,548 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 17:48:25,555 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 17:48:26,054 [WARN] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 17:48:26,122 [DEBUG] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [main] ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-12-12 17:48:26,197 [DEBUG] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [main] 11 mappings in 'requestMappingHandlerMapping'
+2022-12-12 17:48:26,695 [DEBUG] org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [main] Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-12-12 17:48:26,704 [DEBUG] org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver [main] ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-12-12 17:48:26,721 [WARN] org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration [main] Cannot find template location: classpath:/templates/ (please add some templates, check your Mustache configuration, or set spring.mustache.check-template-location=false)
+2022-12-12 17:48:26,811 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 9090 (http) with context path ''
+2022-12-12 17:48:26,825 [INFO] com.example.LetsCharge.LetsChargeApplication [main] Started LetsChargeApplication in 5.479 seconds (process running for 5.986)
+2022-12-12 17:49:03,866 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-9090-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-12 17:49:03,867 [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Initializing Servlet 'dispatcherServlet'
+2022-12-12 17:49:03,867 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Detected StandardServletMultipartResolver
+2022-12-12 17:49:03,867 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Detected AcceptHeaderLocaleResolver
+2022-12-12 17:49:03,867 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Detected FixedThemeResolver
+2022-12-12 17:49:03,868 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@f5b4ca6
+2022-12-12 17:49:03,868 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Detected org.springframework.web.servlet.support.SessionFlashMapManager@43aa767
+2022-12-12 17:49:03,868 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2022-12-12 17:49:03,869 [INFO] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Completed initialization in 1 ms
+2022-12-12 17:49:03,874 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] GET "/api/product/fetchProductById?id=ef761a6c-b3df-4664-bc7c-d98f580822b1", parameters={masked}
+2022-12-12 17:49:03,881 [DEBUG] org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [http-nio-9090-exec-2] Mapped to com.example.LetsCharge.controller.ProductController#fetchProductByIdGet(String)
+2022-12-12 17:49:03,947 [INFO] com.example.LetsCharge.controller.ProductController [http-nio-9090-exec-2] product found...!!!
+2022-12-12 17:49:03,955 [DEBUG] org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor [http-nio-9090-exec-2] Using 'application/json', given [*/*] and supported [application/json]
+2022-12-12 17:49:04,001 [DEBUG] org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor [http-nio-9090-exec-2] Writing [class Product {<EOL>    productId: null<EOL>    productName: null<EOL>    createdAt: null<EOL>    productCode: null<EOL> (truncated)...]
+2022-12-12 17:49:04,031 [DEBUG] org.springframework.web.servlet.DispatcherServlet [http-nio-9090-exec-2] Completed 302 FOUND
+2022-12-12 20:57:47,814 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 20:57:47,816 [INFO] com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-12-12 20:57:47,823 [INFO] com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

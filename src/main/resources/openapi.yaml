@@ -1,0 +1,696 @@
+openapi: 3.0.1
+info:
+  title: LetsCharge API
+  description: API's for Subscription records by using customer, Plan and Product
+  contact:
+    name: Ajay Kate
+    url: http://chargebeeApis.com
+  version: '0.1'
+servers:
+  - url: http://localhost:8989
+#------------------------------PATHS ---------------------------------
+paths:
+  /fetchCustomerById:
+    get:
+      description: fetch customer by id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+
+  /insertCustomer:
+    description: Inserting Customer details
+    post:
+      summary: inserting new Customer
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerBody'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  /updateCustomerById:
+    put:
+      description: update Customer by using Customer_id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerBody'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+
+  /fetchAllCustomers:
+    description: Fetching all Customers records
+    get:
+      description: all customer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+    #----------------------------------------------------------
+  /insertProduct:
+    description: Inserting product details
+    post:
+      summary: inserting new product
+      requestBody:
+        $ref: '#/components/requestBodies/ProductBody'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  /fetchProductById:
+    get:
+      description: fetch product by id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+
+  /updateProductById:
+    put:
+      description: update product by using product_id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/ProductBody'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /fetchAllProducts:
+    description: Fetching all Product records
+    get:
+      description: all products
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+
+          #--------------------------------------------------------------------
+
+  /fetchPlanById:
+    get:
+      description: fetch Plan by id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /insertPlan:
+    description: Inserting Item details
+    post:
+      summary: inserting new Item
+      requestBody:
+        $ref: '#/components/requestBodies/PlanBody'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  /updatePlanById:
+    put:
+      description: update Plan by using Plan_id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/PlanBody'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /fetchAllPlan:
+    description: Fetching all Plans records
+    get:
+      description: all Plans
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+
+
+      #----------------------------------------------------------
+  /fetchAllSubscription:
+    description: Fetching all subscriptions
+    get:
+      description: list subscription
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+        400:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /createSubscription:
+    description: Inserting Subscription details
+    post:
+      summary: inserting new Subscription
+      requestBody:
+        $ref: '#/components/requestBodies/SubscriptionBody'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  /updateSubscription:
+    patch:
+      description: updating subscription details
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/SubscriptionBody'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  #-------------------------------------------------------------
+
+  /addOrder:
+    description: inserting Order details
+    post:
+      summary: inserting new order
+      requestBody:
+        $ref: '#/components/requestBodies/OrderBody'
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+  /updateOrderById:
+    put:
+      description: updating Order details
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/OrderBody'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        400:
+          $ref: '#/components/responses/BadRequest'
+
+
+  /fetchAllOrders:
+    description: fetching all orders
+    get:
+      description: list orders
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        400:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /deleteOrderById:
+    description: canceling order
+    delete:
+      description: canceling the previous placed order
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+
+  /fetchOrderById:
+    get:
+      description: fetch a order by id
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        404:
+          $ref: '#/components/responses/NotFound'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+#---------------------------------COMPONENTS --------------------------------
+components:
+  #___________________RRESPONSES
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Sub:
+      description: this response of Customer,Plan and Product
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/Customer'
+              - $ref: '#/components/schemas/Plan'
+              - $ref: '#/components/schemas/Product'
+              - $ref: 'sysObject.json#/sysObject'
+            discriminator:
+              propertyName: Subscription
+              mapping:
+                Customer: '#/components/schemas/Customer'
+                Plan: '#/components/schemas/Plan'
+                Product: '#/components/schemas/Product'
+
+  #___________________REQUEST BODY_____________________________________
+
+  requestBodies:
+
+    OrderBody:
+      description: A JSON object Contenting order information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Order'
+
+    SubscriptionBody:
+      description: A JSON object Contenting Subscription information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Subscription'
+
+    CustomerBody:
+      description: A JSON object Contenting Customer information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+
+    ProductBody:
+      description: A JSON object Contenting product information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+
+    PlanBody:
+      description: A JSON object Contenting Plan information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Plan'
+
+
+
+  #___________________SCHEMAS
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          title: string
+      required:
+        - code
+        - message
+
+    Customer:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - status
+      properties:
+        customer_id:
+          type: string
+          example: aj
+        first_name:
+          type: string
+          example: Ajay
+          pattern: '^[a-zA-Z]+(\s[a-zA-Z]+)?$'
+        last_name:
+          type: string
+          example: Kate
+          pattern: '^[a-zA-Z]+(\s[a-zA-Z]+)?$'
+        email:
+          type: string
+          example: ajaykate@gmail.com
+          format: email
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+          default: active
+          nullable: false
+
+    Plan:
+      type: object
+      required:
+        - plan_name
+        - plan_type
+        - plan_frequency
+        - status
+        - created_at
+
+      properties:
+        plan_id:
+          type: string
+        plan_name:
+          type: string
+        planType:
+          type: string
+          enum:
+            - weekly
+            - annually
+            - monthly
+        plan_frequency:
+          type: integer
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+        created_at:
+          type: string
+          format: date
+
+
+    Product:
+      type: object
+      required:
+        - product_name
+        - created_at
+        - product_code
+        - product_price
+        - status
+      properties:
+        product_id:
+          type: string
+        product_name:
+          type: string
+        created_at:
+          type: string
+          format: date
+        product_code:
+          type: string
+        product_price:
+          type: number
+          minimum: 1
+          format: double
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+
+    Subscription:
+      type: object
+      required:
+        - activated_at
+        - quantity
+        - status
+        - customer
+        - Plan
+        - Product
+      properties:
+        subscription_id:
+          type: string
+        activated_at:
+          type: string
+          format: date-time
+          example: '1955-04-23T13:22:52.685Z'
+        quantity:
+          type: integer
+        status:
+          type: string
+          enum: [cancel, pause, running]
+        sucess:
+          type: boolean
+        message:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        Plan:
+          $ref: '#/components/schemas/Plan'
+        Product:
+          $ref: '#/components/schemas/Product'
+
+    Order:
+      type: object
+      required:
+        - subscription_id
+        - order_generation_date
+        - order_total
+        - Order_details
+      properties:
+        order_id:
+          type: string
+        subscription_id:
+          type: string
+        order_generation_date:
+          type: string
+          format: date
+          example: '1955-04-23T13:22:52.685Z'
+        order_total:
+          type: number
+          format: double
+        next_order_date:
+          type: string
+        Order_details:
+          $ref: '#/components/schemas/Order_details'
+
+    Order_details:
+      type: object
+      properties:
+        product_name:
+          type: string
+        product_price:
+          type: number
+          format: double
+        quantity:
+          type: integer
+
+    #---------------------------------------------------------------------------
