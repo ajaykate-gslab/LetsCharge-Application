@@ -1,6 +1,6 @@
 package com.example.LetsCharge.scheduler;
 
-import com.example.LetsCharge.entity.DemoResponse;
+import com.example.LetsCharge.entity.JobResponse;
 import com.example.LetsCharge.job.OrderJob;
 import com.example.LetsCharge.repository.SubscriptionRepository;
 import com.example.LetsCharge.services.model.Subscription;
@@ -32,7 +32,7 @@ public class OrderJobScheduler {
     String subscription_id;
 
     //---------------------------------------------------------------------------
-        public ResponseEntity<DemoResponse> scheduleNextOrder(Subscription subscription, org.threeten.bp.LocalDateTime nextOrderDate, ZoneId timeZone,String subscriptionId) {
+        public ResponseEntity<JobResponse> scheduleNextOrder(Subscription subscription, org.threeten.bp.LocalDateTime nextOrderDate, ZoneId timeZone, String subscriptionId) {
             try {
                 //LocalDateTime temp = LocalDateTime.of(2023, 01, 10, 8, 24, 00, 788000000);
                 this.subscription_id= subscriptionId;
@@ -41,23 +41,23 @@ public class OrderJobScheduler {
 
                 ZonedDateTime dateTime = ZonedDateTime.of(temp2, timeZone);
                 if(dateTime.isBefore(ZonedDateTime.now())) {
-                    DemoResponse demoResponse = new DemoResponse(false,
+                    JobResponse jobResponse = new JobResponse(false,
                             "dateTime must be after current time");
-                    return ResponseEntity.badRequest().body(demoResponse);
+                    return ResponseEntity.badRequest().body(jobResponse);
                 }
 
                 JobDetail jobDetail = buildJobDetail(subscription);
                 Trigger trigger = buildJobTrigger(jobDetail, dateTime);
                 scheduler.scheduleJob(jobDetail, trigger);
 
-                DemoResponse demoResponse = new DemoResponse(true,jobDetail.getKey().getName(),jobDetail.getKey().getGroup(),"Order job scheduled successfully...!!!");
-                return ResponseEntity.ok(demoResponse);
+                JobResponse jobResponse = new JobResponse(true,jobDetail.getKey().getName(),jobDetail.getKey().getGroup(),"Order job scheduled successfully...!!!");
+                return ResponseEntity.ok(jobResponse);
             } catch (SchedulerException ex) {
                 logger.error("Error scheduling Order", ex);
 
-                DemoResponse demoResponse = new DemoResponse(false,
+                JobResponse jobResponse = new JobResponse(false,
                         "Error scheduling Order. Please try later!");
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(demoResponse);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(jobResponse);
             }
         }
         //----------------------------------------------------------------------------------------

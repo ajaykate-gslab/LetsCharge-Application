@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 
+secretkey.txt
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

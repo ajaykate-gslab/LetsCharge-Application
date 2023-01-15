@@ -1,10 +1,11 @@
 package com.example.LetsCharge.repository;
 
 import com.example.LetsCharge.entity.Subscription;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,8 +33,15 @@ public interface SubscriptionRepository extends JpaRepository<Subscription,Strin
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE subscription SET status='status' WHERE subscription_id='subscription_id'",nativeQuery = true)
-    void updateSubscriptionStatus(String status, String subscription_id);
+    @Query(value = "UPDATE subscription s SET s.status=:status WHERE s.subscription_id=:subscription_id",nativeQuery = true)
+    int updateSubscriptionStatus(@Param("status") String status, @Param("subscription_id") String subscription_id);
+  //int updateSubscriptionStatus(com.example.LetsCharge.services.model.Subscription.StatusEnum status, String subscription_id);
+
+
+    @Query(value = "SELECT subscription_id FROM subscription s WHERE s.subscription_id=:subscription_id", nativeQuery = true)
+    List<String> findSubById(@Param("subscription_id") String subscription_id);
+
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.LetsCharge.entity;
 
+import com.example.LetsCharge.enums.SubStatusEnum;
 import io.swagger.annotations.ApiModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +26,7 @@ public class Subscription implements Serializable {
     private Integer quantity;
     @NonNull
     @Enumerated(EnumType.STRING)
+    @Column(unique = true, name = "status")
     private com.example.LetsCharge.services.model.Subscription.StatusEnum status;
     private String first_name;
     private String last_name;

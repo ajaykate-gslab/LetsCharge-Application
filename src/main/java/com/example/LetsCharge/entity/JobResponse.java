@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class DemoResponse {
+public class JobResponse {
     @Id
     @Column(name = "job_id", nullable = false)
     private String jobId;
@@ -14,15 +14,15 @@ public class DemoResponse {
     private String jobGroup;
     private String message;
 
-    public DemoResponse() {
+    public JobResponse() {
     }
 
-    public DemoResponse(boolean success, String message) {
+    public JobResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
     }
 
-    public DemoResponse( boolean success, String jobid,String jobGroup, String message) {
+    public JobResponse(boolean success, String jobid, String jobGroup, String message) {
         this.jobId = jobId;
         this.success = success;
         this.jobGroup = jobGroup;
@@ -60,4 +60,6 @@ public class DemoResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
+
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,7 +90,7 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
                     // To create first default order for new customer
                     List<Subscription> subscriptionList = subscriptionRepository.findAllById(body.getCustomer().getCustomerId());
                     if (subscriptionList.size() == 0) {
-                        orderController.createFirstDefaultOrder(product,body);
+                        orderController.createFirstDefaultOrder(product, body);
                     }
                     //to set next_order_date
                     nextOrderDate = nextDate.nextOrderDate(subscription);
@@ -103,8 +102,8 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
                     //Job scheduling at next_order date
                     String subscriptionId = subscription.getSubscription_id();
                     ZoneId zoneId = ZoneId.of("Asia/Kolkata");
-                    orderJobScheduler.scheduleNextOrder(body, nextOrderDate, zoneId, subscriptionId);
-
+                    ResponseEntity<JobResponse> jobResponseResponseEntity = orderJobScheduler.scheduleNextOrder(body, nextOrderDate, zoneId, subscriptionId);
+                    subscription.setSucess(jobResponseResponseEntity.getBody().isSuccess());
                     return new ResponseEntity(subscription, HttpStatus.CREATED);
                 }
             }
@@ -121,22 +120,30 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
         return new ResponseEntity(subscriptionList, HttpStatus.OK);
     }
 
+
+    //------------------------------ API TO UPDATE SUBSCRIPTION BY ID ---------------------------
     @Override
     public ResponseEntity<com.example.LetsCharge.services.model.Subscription> updateSubscriptionPatch(String id, com.example.LetsCharge.services.model.Subscription body) {
-        Optional<Subscription> optionalSubscription = subscriptionRepository.findById(id);
-        if (optionalSubscription.isPresent()) {
 
-            //com.example.LetsCharge.services.model.Subscription.StatusEnum status =(body.getStatus());
+        List<String> subscriptionList = subscriptionRepository.findSubById(id);
+        if (body.getStatus().equals(null)) {
+            logger.info("Enter valid status like (running,cancel)..!!!");
+            return new ResponseEntity("Enter valid status like (running,cancel)..!!!", HttpStatus.INTERNAL_SERVER_ERROR);
+        } else if (subscriptionList.size() != 0) {
 
             String status = String.valueOf(body.getStatus());
 
-            System.out.println("Status : " + status);
-            subscriptionRepository.updateSubscriptionStatus(status, id);
-            logger.info("Subscription updated successfully...!!!");
-            return new ResponseEntity(HttpStatus.CREATED);
+            int isUpdated = subscriptionRepository.updateSubscriptionStatus(status, id);
+            if (isUpdated == 1) {
+                logger.info("Subscription updated successfully...!!!");
+                return new ResponseEntity("Subscription updated successfully...!!!", HttpStatus.CREATED);
+            } else {
+                logger.info("Subscription not updated...!!!");
+                return new ResponseEntity("Subscription not updated...!!!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } else {
-            logger.info("order not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            logger.info("Subscription not found");
+            return new ResponseEntity("Subscription not found", HttpStatus.NOT_FOUND);
         }
     }
 }

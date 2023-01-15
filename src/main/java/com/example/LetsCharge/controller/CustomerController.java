@@ -97,4 +97,21 @@ public class CustomerController implements InsertCustomerApi , FetchCustomerById
         List<com.example.LetsCharge.entity.Customer> customerList=customerRepository.findAll();
         return  new ResponseEntity(customerList,HttpStatus.OK);
     }
+
+    @PostMapping("/insertCustomerPostCopy")
+    public ResponseEntity<Customer> insertCustomerPostCopy(@Valid Customer body) {
+        Customer customer1=body;
+
+        customer=customerMapper.customerModelToCustomerEntity(body);
+       /* customer.setCustomer_id(body.getCustomerId());
+        customer.setFirst_name(body.getFirstName());
+        customer.setLast_name(body.getLastName());
+        customer.setStatus(body.getStatus());
+        customer.setEmail(body.getEmail());*/
+
+        customer=customerRepository.save(customer);
+
+        logger.info("Customer created successfully...!!!");
+        return new ResponseEntity<>(customer,HttpStatus.CREATED);
+    }
 }
