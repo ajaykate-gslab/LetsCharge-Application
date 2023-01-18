@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription,String> {
 /*
@@ -21,8 +22,12 @@ public interface SubscriptionRepository extends JpaRepository<Subscription,Strin
     Optional<Subscription> findById(String customer_id);
 */
 
-    @Query(value = "SELECT * FROM subscription s WHERE s.customer_customer_id='customer_id'", nativeQuery = true)
-    List<Subscription> findAllById(String customer_id);
+    @Query(value = "SELECT * FROM subscription s WHERE s.subscription_id =:subscription_id", nativeQuery = true)
+    Optional<Subscription> findAllById(@Param("subscription_id")String subscription_id);
+
+    @Query(value = "SELECT customer_customer_id FROM subscription s WHERE s.customer_customer_id =:customer_id", nativeQuery = true)
+    List<String> findCustomerIdById(String customer_id);
+
 
     /*@Query(value = "SELECT * FROM subscription s WHERE" +
             " s.customer_customer_id = :customer_id", nativeQuery = true)
@@ -39,9 +44,10 @@ public interface SubscriptionRepository extends JpaRepository<Subscription,Strin
 
 
     @Query(value = "SELECT subscription_id FROM subscription s WHERE s.subscription_id=:subscription_id", nativeQuery = true)
-    List<String> findSubById(@Param("subscription_id") String subscription_id);
+    List<String> findSubscriptionIdById(@Param("subscription_id") String subscription_id);
 
-
+    @Query(value = "SELECT status FROM subscription s WHERE s.subscription_id=:subscription_id", nativeQuery = true)
+    List<String> findStatusById(@Param("subscription_id") String subscription_id);
 
 }
 

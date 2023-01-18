@@ -1,9 +1,9 @@
 package com.example.LetsCharge.job;
 
 import com.example.LetsCharge.controller.OrderController;
+import com.example.LetsCharge.entity.Subscription;
 import com.example.LetsCharge.scheduler.OrderJobScheduler;
 import com.example.LetsCharge.repository.SubscriptionRepository;
-import com.example.LetsCharge.services.model.Subscription;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,30 +29,32 @@ public class OrderJob extends QuartzJobBean {
     private SubscriptionRepository subscriptionRepository;
 
 
-
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.info("Executing Job with key {}", jobExecutionContext.getJobDetail().getKey());
         JobDataMap jobDataMap = jobExecutionContext.getMergedJobDataMap();
-        //orderController.recurringOrderScheduler(jobDataMap);
-
 
         //check subscription status
-        Subscription subscription=new Subscription();
-        Optional<com.example.LetsCharge.entity.Subscription> optionalSubscription
-                = subscriptionRepository.findById(jobDataMap.getString("subscription_id"));
-        if (optionalSubscription.isPresent()){
-            Subscription.StatusEnum status =optionalSubscription.get().getStatus();
-            if (status.equals(Subscription.StatusEnum.RUNNING)){
+        /*Optional<com.example.LetsCharge.entity.Subscription> optionalSubscription =
+                subscriptionRepository.findAllById(jobDataMap.getString("subscription_id"));*/
+        List<String> stringList =
+                subscriptionRepository.findStatusById(jobDataMap.getString("subscription_id"));
+        if (stringList.size() !=0){
+            String status = stringList.get(0);
+            if (status.equals("RUNNING") || status.equals("running"))
+            {
                 orderController.recurringOrderScheduler(jobDataMap);
-            }
-            else if(status.equals(Subscription.StatusEnum.CANCEL)){
+            } else if (status.equals("CANCEL") || status.equals("cancel"))
+            {
                 try {
                     orderController.cancelOrderScheduler();
                 } catch (SchedulerException e) {
                     throw new RuntimeException(e);
                 }
             }
+        }
+        else {
+            System.out.println(stringList.size()+" ### "+stringList.get(0));
         }
     }
 

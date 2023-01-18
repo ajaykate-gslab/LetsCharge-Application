@@ -7,6 +7,7 @@ import com.example.LetsCharge.scheduler.OrderJobScheduler;
 import com.example.LetsCharge.services.api.CreateSubscriptionApi;
 import com.example.LetsCharge.services.api.FetchAllSubscriptionApi;
 import com.example.LetsCharge.services.api.UpdateSubscriptionApi;
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
                     subscription.setPlan_frequency(plan.getPlan_frequency());
 
                     // To create first default order for new customer
-                    List<Subscription> subscriptionList = subscriptionRepository.findAllById(body.getCustomer().getCustomerId());
+                    List<String> subscriptionList = subscriptionRepository.findCustomerIdById(body.getCustomer().getCustomerId());
                     if (subscriptionList.size() == 0) {
                         orderController.createFirstDefaultOrder(product, body);
                     }
@@ -125,7 +126,7 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
     @Override
     public ResponseEntity<com.example.LetsCharge.services.model.Subscription> updateSubscriptionPatch(String id, com.example.LetsCharge.services.model.Subscription body) {
 
-        List<String> subscriptionList = subscriptionRepository.findSubById(id);
+        List<String> subscriptionList = subscriptionRepository.findSubscriptionIdById(id);
         if (body.getStatus().equals(null)) {
             logger.info("Enter valid status like (running,cancel)..!!!");
             return new ResponseEntity("Enter valid status like (running,cancel)..!!!", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -136,6 +137,11 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
             int isUpdated = subscriptionRepository.updateSubscriptionStatus(status, id);
             if (isUpdated == 1) {
                 logger.info("Subscription updated successfully...!!!");
+                try {
+                    orderJobScheduler.cancelNextOrder();
+                } catch (SchedulerException e) {
+                    throw new RuntimeException(e);
+                }
                 return new ResponseEntity("Subscription updated successfully...!!!", HttpStatus.CREATED);
             } else {
                 logger.info("Subscription not updated...!!!");

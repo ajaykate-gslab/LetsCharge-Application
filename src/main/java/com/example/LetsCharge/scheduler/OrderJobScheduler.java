@@ -8,6 +8,7 @@ import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,16 +29,18 @@ public class OrderJobScheduler {
     private Scheduler scheduler;
     @Autowired
     private SubscriptionRepository subscriptionRepository;
-
     String subscription_id;
-
+    @Value( "${quartzJobScheduler.time}")
+    private int time;
     //---------------------------------------------------------------------------
         public ResponseEntity<JobResponse> scheduleNextOrder(Subscription subscription, org.threeten.bp.LocalDateTime nextOrderDate, ZoneId timeZone, String subscriptionId) {
             try {
+
+
                 //LocalDateTime temp = LocalDateTime.of(2023, 01, 10, 8, 24, 00, 788000000);
                 this.subscription_id= subscriptionId;
                 LocalDateTime temp1=LocalDateTime.now();
-                LocalDateTime temp2 = temp1.plusSeconds(5);
+                LocalDateTime temp2 = temp1.plusSeconds(time);
 
                 ZonedDateTime dateTime = ZonedDateTime.of(temp2, timeZone);
                 if(dateTime.isBefore(ZonedDateTime.now())) {
@@ -91,7 +94,9 @@ public class OrderJobScheduler {
 
         public void cancelNextOrder() throws SchedulerException {
             JobDetail job = newJob(OrderJob.class).withIdentity("MyJobName", "MyJobGroup").build();
+            JobKey jobKey= new JobKey(job.getJobClass().getName());
             scheduler.deleteJob(job.getKey());
+          //  scheduler.deleteJob(jobKey);
             logger.info("Order cancelled successfully");
         }
 

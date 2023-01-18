@@ -159,12 +159,10 @@ public class OrderController implements AddOrderApi, UpdateOrderByIdApi, DeleteO
         String planId = jobDataMap.getString("planId");
         String productId = jobDataMap.getString("productId");
         String subscription_id = jobDataMap.getString("subscription_id");
-       /* //String statusEnum= jobDataMap.getString("status");
-        com.example.LetsCharge.services.model.Subscription.StatusEnum o= (com.example.LetsCharge.services.model.Subscription.StatusEnum) jobDataMap.get("status");
-*/
         logger.info("inside order Controller");
 
-        Optional<Subscription> optionalSubscription = subscriptionRepository.findById(subscription_id);
+     //   Optional<Subscription> optionalSubscription = subscriptionRepository.findById(subscription_id);
+        Optional<Subscription> optionalSubscription= subscriptionRepository.findAllById(subscription_id);
         if (optionalSubscription.isPresent()) {
             com.example.LetsCharge.entity.Order_details order_details = new com.example.LetsCharge.entity.Order_details();
             com.example.LetsCharge.entity.Order order = new com.example.LetsCharge.entity.Order();
