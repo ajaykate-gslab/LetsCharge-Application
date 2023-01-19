@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
   title: LetsCharge API
-  description: API's for Subscription records by using customer, Plan and Product
+  description: API's for getting Subscription and place order by using customer, Plan and Product
   contact:
     name: Ajay Kate
-    url: http://chargebeeApis.com
+    url: http://letscharge.com
   version: '0.1'
 servers:
-  - url: http://localhost:8989
+  - url: http://localhost:9090
 #------------------------------PATHS ---------------------------------
 paths:
   /fetchCustomerById:

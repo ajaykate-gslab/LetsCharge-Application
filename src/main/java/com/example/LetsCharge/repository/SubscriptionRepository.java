@@ -40,7 +40,7 @@ public interface SubscriptionRepository extends JpaRepository<Subscription,Strin
     @Transactional
     @Query(value = "UPDATE subscription s SET s.status=:status WHERE s.subscription_id=:subscription_id",nativeQuery = true)
     int updateSubscriptionStatus(@Param("status") String status, @Param("subscription_id") String subscription_id);
-  //int updateSubscriptionStatus(com.example.LetsCharge.services.model.Subscription.StatusEnum status, String subscription_id);
+    //int updateSubscriptionStatus(com.example.LetsCharge.services.model.Subscription.StatusEnum status, String subscription_id);
 
 
     @Query(value = "SELECT subscription_id FROM subscription s WHERE s.subscription_id=:subscription_id", nativeQuery = true)
@@ -49,8 +49,9 @@ public interface SubscriptionRepository extends JpaRepository<Subscription,Strin
     @Query(value = "SELECT status FROM subscription s WHERE s.subscription_id=:subscription_id", nativeQuery = true)
     List<String> findStatusById(@Param("subscription_id") String subscription_id);
 
+    @Query(value = "SELECT * FROM letscharge.subscription", nativeQuery = true)
+    List<String> findAllSubscriptions();
 }
-
 
 
 

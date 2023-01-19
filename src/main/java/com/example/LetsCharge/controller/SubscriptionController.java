@@ -2,6 +2,7 @@ package com.example.LetsCharge.controller;
 
 import com.example.LetsCharge.entity.*;
 import com.example.LetsCharge.helper.CalculateNextOrderDate;
+import com.example.LetsCharge.mapper.SubscriptionMapper;
 import com.example.LetsCharge.repository.*;
 import com.example.LetsCharge.scheduler.OrderJobScheduler;
 import com.example.LetsCharge.services.api.CreateSubscriptionApi;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,8 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
     private CalculateNextOrderDate nextDate;
     @Autowired
     private OrderController orderController;
+    @Autowired
+    private SubscriptionMapper subscriptionMapper;
 
     Subscription subscription = new Subscription();
     Customer customer = new Customer();
@@ -64,6 +68,7 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
         String product_id = product1.getProductId();
         String plan_id = plan1.getPlanId();
 
+        //Optional Classes to check entity(customer,Product and Plan) present or not in the database
         Optional<Customer> optionalCustomer = customerRepository.findById(customer_id);
         Optional<Product> optionalProduct = productRepository.findById(product_id);
         Optional<Plan> optionalPlan = planRepository.findById(plan_id);
@@ -72,21 +77,9 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
         if (optionalCustomer.isPresent()) {
             if (optionalProduct.isPresent()) {
                 if (optionalPlan.isPresent()) {
-                    customer = optionalCustomer.get();
-                    product = optionalProduct.get();
-                    plan = optionalPlan.get();
 
-                    subscription.setCustomer(customer);
-                    subscription.setProduct(product);
-                    subscription.setPlan(plan);
-                    subscription.setFirst_name(customer.getFirst_name());
-                    subscription.setLast_name(customer.getLast_name());
-                    subscription.setEmail(customer.getEmail());
-                    subscription.setProduct_name(product.getProduct_name());
-                    subscription.setProduct_price(product.getProductPrice());
-                    subscription.setPlan_name(plan.getPlan_name());
-                    subscription.setPlan_type(plan.getPlanType());
-                    subscription.setPlan_frequency(plan.getPlan_frequency());
+                    //ModelType Subscription to EntityType Subscription mapping
+                    subscription=subscriptionMapper.modelSubscriptionToEntitySubscription(body);
 
                     // To create first default order for new customer
                     List<String> subscriptionList = subscriptionRepository.findCustomerIdById(body.getCustomer().getCustomerId());
@@ -117,7 +110,8 @@ public class SubscriptionController implements CreateSubscriptionApi, UpdateSubs
     //------------------------------ API TO LIST ALL SUBSCRIPTIONS ---------------------------
     @Override
     public ResponseEntity<List<com.example.LetsCharge.services.model.Subscription>> fetchAllSubscriptionGet() {
-        List<Subscription> subscriptionList = subscriptionRepository.findAll();
+        //List<Subscription> subscriptionList = subscriptionRepository.findAll();
+        List<String> subscriptionList = subscriptionRepository.findAllSubscriptions();
         return new ResponseEntity(subscriptionList, HttpStatus.OK);
     }
 
